@@ -1,6 +1,7 @@
 <h1>id: <%= @task.id %> の詳細ページ</h1>
 
-<p><%= @task.content %></p>
+<p>タスク：<%= @task.content %></p>
 
 <%= link_to '一覧に戻る', tasks_path %>
-<%= link_to 'このメッセージを編集する', edit_task_path(@task) %>
+<%= link_to 'edit TASK', edit_task_path(@task) %>
+<%= link_to 'delite TASK', @method,method: :delete,data: { confirm: '本当に削除してよろしいですか？' } %>
