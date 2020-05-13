@@ -24,8 +24,7 @@ before_action :require_user_logged_in
       flash.now[:danger] = 'Task が投稿されませんでした'
       render :new
     end
-  end
-
+  
   def edit
      @task = Task.find(params[:id])
   end
@@ -63,5 +62,5 @@ before_action :require_user_logged_in
       redirect_to root_url
     end
   end
-  
-end  
+end
+end 

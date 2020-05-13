@@ -1,9 +1,20 @@
+<% if logged_in? %>
+
 <h1><%= current_user.name %>さんのタスク一覧</h1>
   <ul>
     <% @tasks.each do |task| %>
     <li><%= link_to task.id ,task_path(task) %>:<%= task.content %></li>
     <% end %>
   </ul>
-  <%= link_to '新規投稿', new_task_path, class: 'btn  btn-primary' %>
-  <%= link_to 'ログアウト', sessions_destroy_path, class: 'btn btn-primary' %>
+  <%= link_to '新規投稿', new_task_path, class: 'btn btn-primary' %>
+  <%= link_to 'ログアウト', logout_path, class: 'btn btn-primary' %>
   
+  
+<% else %>
+ <div class="center jumbotron">
+    <div class="text-center">
+      <h1>Welcome to the Microposts</h1>
+      <%= link_to '新規登録はこちら', users_new, class: 'btn btn-lg btn-primary' %>
+    </div>
+  </div>
+<% end %>
