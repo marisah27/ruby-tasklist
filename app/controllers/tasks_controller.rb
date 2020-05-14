@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
 before_action :require_user_logged_in
-  
+before_action :correct_user, only: [:show, :destroy, :edit]
+
   def index
     @task = current_user.tasks.build  # form_with 用
     @tasks = current_user.tasks.order(id: :desc)
@@ -24,6 +25,7 @@ before_action :require_user_logged_in
       flash.now[:danger] = 'Task が投稿されませんでした'
       render :new
     end
+  end
   
   def edit
      @task = Task.find(params[:id])
@@ -42,11 +44,10 @@ before_action :require_user_logged_in
   end
 
   def destroy
-    @task = Task.find(params[:id])
     @task.destroy
-
     flash[:success] = 'Task は正常に削除されました'
-    redirect_to tasks_url
+    redirect_back(fallback_location: root_path)
+    
   end
 
   private
@@ -57,10 +58,9 @@ before_action :require_user_logged_in
   end
   
   def correct_user
-    @task = current_user.microposts.find_by(id: params[:id])
+    @task = current_user.tasks.find_by(id: params[:id])
     unless @task
       redirect_to root_url
     end
   end
 end
-end 
